@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</head>
+<body>
+    <div x-data="textCounter()" @input="calculateCounts()">
+        <input type="text" x-model="inputText"/>
+        <h2>Character count: <span x-text="characterCount"></span></h2>
+        <h2>word count: <span x-text="wordCount"></span></h2>
+    </div>
+
+    <script>
+        function textCounter(){
+            return{
+                inputText: '',
+                characterCount: 0,
+                wordCount: 0,
+
+                calculateCounts: function(){
+
+                    let countChar = 0;
+                    let countWord = 0;
+                    let inWord = false;
+
+                    for(let index = 0;index < this.inputText.length;index++){
+                        let char = this.inputText[index];
+
+                        if (char !== " ") {
+                            countChar++
+                           
+                            if(!inWord){
+                                countWord++;
+                                inWord = true;
+                            }
+                        } else {
+                            inWord = false;
+                        }
+                    }
+                    this.characterCount = countChar;
+                    this.wordCount = countWord;
+                },
+
+               
+
+            }
+           
+        }
+    </script>
+</body>
+
+</html>
